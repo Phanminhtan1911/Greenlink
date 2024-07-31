@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>Bảo Vệ Loài Nguy Cấp</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+      
+        /* Body styling */
+        body {
+          font-family: 'Roboto', sans-serif;
+          background-image: url('https://wallpaperaccess.com/full/773426.jpg');
+          background-size: cover;
+          background-attachment: fixed;
+          color: white;
+        }
+      
+        /* Navbar styling */
+        .navbar {
+          background-color: rgba(0, 0, 0, 0.7);
+          overflow: hidden;
+          position: fixed;
+          top: 0;
+          width: 100%;
+          z-index: 100;
+        }
+        .navbar a, .navbar i {
+          float: left;
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 17px 19px;
+          text-decoration: none;
+          font-size: 17px;
+          transition: background-color 0.3s;
+        }
+        .navbar a:hover, .navbar i:hover {
+          background-color: #ddd;
+          color: black;
+        }
+      
+        /* Main header styling with added shadow for text visibility */
+        .main-header {
+          padding: 100px 0;
+          text-align: center;
+          background: rgba(255, 255, 255, 0);
+          margin-top: 48px;
+        }
+        .main-header h1 {
+          font-size: 65px;
+          text-shadow: 4px 3px #000; 
+        }
+      
+        /* Search container styling with added placeholder color */
+        .search-container {
+          text-align: center;
+          padding: 20px;
+          margin-top: 30px;
+        }
+        .search-container input[type=text] {
+          padding: 10px;
+          font-size: 17px;
+          border: none;
+          border-radius: 25px;
+          width: 40%;
+          background: rgba(255, 255, 250, 0.001); /* Màu trắng mờ đục với độ trong suốt 50% */
+          color: rgb(0, 0, 0);
+          border: 2px solid rgb(255, 255, 255);
+          transition: width 0.4s ease-in-out;
+      }
+      
+      .search-container input[type=text]::placeholder {
+          color: rgb(255, 255, 255); /* Màu placeholder đã được thêm vào để dễ nhìn hơn */
+      }
+      
+        .search-container button {
+          padding: 10px 20px;
+          background: #556B2F;
+          font-size: 17px;
+          border: none;
+          border-radius: 25px;
+          color: white;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+        .search-container button:hover {
+          background-color: #6B8E23;
+        }
+      
+        /* Button group styling */
+        .button-group {
+          text-align: center;
+          padding: 20px;
+          margin-top: 30px;
+        }
+        .button-group button {
+          padding: 10px 20px;
+          background-color: #556B2F;
+          border: none;
+          border-radius: 25px;
+          color: white;
+          font-size: 17px;
+          cursor: pointer;
+          transition: transform 0.3s ease-in-out;
+        }
+        .button-group button:hover {
+          transform: translateY(-3px);
+          background-color: #6B8E23;
+        }
+      
+        /* Footer styling with added opacity for better visibility of content above it */
+        .footer {
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 10px;
+          text-align: center;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          opacity: 0.9; /* Added opacity for better visibility */
+        }
+      
+        .zone {
+          margin: auto;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          background: radial-gradient(ellipse at center, #EB6A5A 0, #c9402f 100%);
+          width: 80%;
+          height: 20%;
+          border: 5px dashed white;
+          border-radius: 10px;
+          text-align: center;
+          color: white;
+          z-index: 20;
+          transition: all 0.3s ease-out;
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+        }
+        .zone .btnCompression .active {
+          background: #EB6A5A;
+          color: white;
+        }
+        .zone i {
+          text-align: center;
+          font-size: 10em;
+          color: #fff;
+          margin-top: 50px;
+        }
+        .zone .selectFile {
+          height: 50px;
+          margin: 20px auto;
+          position: relative;
+          width: 200px;
+        }
+        .zone label,
+        .zone input {
+          cursor: pointer;
+          display: block;
+          height: 50px;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          border-radius: 5px;
+        }
+        .zone label {
+          background: #fff;
+          color: #EB6A5A;
+          display: inline-block;
+          font-size: 1.2em;
+          line-height: 50px;
+          padding: 0;
+          text-align: center;
+          white-space: nowrap;
+          text-transform: uppercase;
+          font-weight: 400;
+          box-shadow: 0 1px 1px gray;
+        }
+        .zone input[type=file] {
+          opacity: 0;
+        }
+        .zone.in {
+          color: white;
+          border-color: white;
+          background: radial-gradient(ellipse at center, #EB6A5A 0, #c9402f 100%);
+        }
+        .zone.in i {
+          color: #fff;
+        }
+        .zone.in label {
+          background: #fff;
+          color: #EB6A5A;
+        }
+        .zone.hover {
+          color: gray;
+          border-color: white;
+          background: #fff;
+          border: 5px dashed gray;
+        }
+        .zone.hover i {
+          color: #EB6A5A;
+        }
+        .zone.hover label {
+          background: #fff;
+          color: #EB6A5A;
+        }
+        .zone.fade {
+          transition: all 0.3s ease-out;
+          opacity: 1;
+        }
+
+      </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="#home">Trang Chủ</a>
+    <a href="#info">Thông Tin</a>
+    <a href="#contact">Liên Hệ Để Bảo Tồn</a>
+    <i class="fa fa-bars" onclick="myFunction()"></i>
+  </div>
+  
+  <div class="main-header">
+    <h1>Bảo Vệ Loài Nguy Cấp</h1>
+  </div>
+  <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Tìm Kiếm Loài" name="search">
+      <button type="submit">Tìm Kiếm</button>
+    </form>
+  </div>
+  <div class="header" style="text-align: center;">
+    
+   <h2>Tải ảnh lên</h2> 
+  </div>
+  <div class="button-group">
+  <form id="uploadfile" action="/upload_file" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" id="accept" value="Upload" name="submit">
+  </form>
+</div>
+  <div id="response"  style="text-align: center"></div>
+  <!-- <script>
+      
+    $("#uploadfile").submit(function(e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+        
+            var form = $(this);
+            var actionUrl = form.attr('action');
+            
+            $.ajax({
+                type: "POST",
+                url: "{{ url_for('upload_file') }}",
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    $("#response").html(data.code);
+                    //alert(data.code)
+                }
+            });
+        });
+</script> -->
+</body>
+</html>
