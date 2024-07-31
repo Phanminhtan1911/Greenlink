@@ -12,7 +12,7 @@ import os
 import base64
 
 def load_model():
-    model =  tf.keras.models.load_model("model/new2.h5")
+    model =  tf.keras.models.load_model("new2.h5")
     #model = tf.keras.models.load_model('model/convnext')
     #model = tf.keras.models.load_model('my_models_name.h5', custom_objects={'KerasLayer':hub.KerasLayer , 'AdamWeightDecay': optimizer})
     return model
