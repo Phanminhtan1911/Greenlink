@@ -57,11 +57,8 @@ def upload_file():
         # Lưu file vào thư mục trên server
         file_dic = 'uploads/' + uploaded_file.filename
         uploaded_file.save(file_dic)
-        
-            
-            # data = processing_uploader(file,model)
+        # data = processing_uploader(file,model)
         name = processing_uploader(file_dic,model)
-        print(name)
         return name
         
     else:
